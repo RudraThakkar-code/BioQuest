@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - Exam Engine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/exam.css">
+</head>
+<body class="exam-body">
+    <header class="exam-header">
+        <div class="exam-title"><span id="headerName">BioQuest</span> - <span id="examName">Loading...</span></div>
+        <div class="timer">Time Left: <span id="timeRemaining">--:--</span></div>
+    </header>
+
+    <div class="exam-container">
+        <div class="main-panel">
+            <div class="question-header">
+                <div>Question <span id="qNumber">1</span> <span class="q-type" id="qType">(MCQ)</span></div>
+                <div>Marks: <span id="qMarks">1</span></div>
+            </div>
+            
+            <div class="question-content" id="questionText">Loading question...</div>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Options will be injected here -->
+            </div>
+            
+            <div class="nat-container" id="natContainer" style="display:none;">
+                <label>Answer: </label>
+                <input type="number" step="any" id="natInput" placeholder="Enter numerical value">
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="markForReview()">Mark for Review & Next</button>
+                <button class="btn btn-secondary" onclick="clearResponse()">Clear Response</button>
+                <button class="btn btn-primary" onclick="saveAndNext()">Save & Next</button>
+            </div>
+        </div>
+
+        <div class="side-panel">
+            <div class="calculator-btn-container">
+                <button class="btn btn-calc" onclick="toggleCalculator()">Virtual Calculator</button>
+            </div>
+            
+            <div class="palette-header">Question Palette:</div>
+            <div class="palette-legend">
+                <div class="legend-item"><div class="badge status-answered"></div> Answered</div>
+                <div class="legend-item"><div class="badge status-not_answered"></div> Not Answered</div>
+                <div class="legend-item"><div class="badge status-not_visited"></div> Not Visited</div>
+                <div class="legend-item"><div class="badge status-marked_review"></div> Marked for Review</div>
+                <div class="legend-item"><div class="badge status-answered_review"></div> Answered & Marked for Review</div>
+            </div>
+            <div class="question-palette" id="questionPalette">
+                <!-- Buttons will be injected here -->
+            </div>
+            
+            <button class="btn btn-submit-exam" onclick="submitExam()">Submit Exam</button>
+        </div>
+    </div>
+    
+    <!-- Virtual Calculator Modal placeholder -->
+    <div id="calculatorModal" class="modal">
+        <div class="modal-content calc-content">
+            <span class="close" onclick="toggleCalculator()">&times;</span>
+            <div id="calculator-mount">
+                <p>Calculator will be loaded here.</p>
+                <!-- Simple fallback calculator for now -->
+                <input type="text" id="calc-display" disabled style="width: 100%; margin-bottom: 10px;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                    <button onclick="document.getElementById('calc-display').value += '7'">7</button>
+                    <button onclick="document.getElementById('calc-display').value += '8'">8</button>
+                    <button onclick="document.getElementById('calc-display').value += '9'">9</button>
+                    <button onclick="document.getElementById('calc-display').value += '/'">/</button>
+                    
+                    <button onclick="document.getElementById('calc-display').value += '4'">4</button>
+                    <button onclick="document.getElementById('calc-display').value += '5'">5</button>
+                    <button onclick="document.getElementById('calc-display').value += '6'">6</button>
+                    <button onclick="document.getElementById('calc-display').value += '*'">*</button>
+                    
+                    <button onclick="document.getElementById('calc-display').value += '1'">1</button>
+                    <button onclick="document.getElementById('calc-display').value += '2'">2</button>
+                    <button onclick="document.getElementById('calc-display').value += '3'">3</button>
+                    <button onclick="document.getElementById('calc-display').value += '-'">-</button>
+                    
+                    <button onclick="document.getElementById('calc-display').value += '0'">0</button>
+                    <button onclick="document.getElementById('calc-display').value += '.'">.</button>
+                    <button onclick="try{document.getElementById('calc-display').value = eval(document.getElementById('calc-display').value)}catch(e){}">=</button>
+                    <button onclick="document.getElementById('calc-display').value += '+'">+</button>
+                    <button onclick="document.getElementById('calc-display').value = ''" style="grid-column: span 4;">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/exam.js"></script>
+</body>
+</html>

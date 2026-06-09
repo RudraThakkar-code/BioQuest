@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "marks": 1,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "Primrose Ch 2",
+    "question": "EcoRI produces:",
+    "options": [
+      "Sticky ends",
+      "Blunt ends",
+      "Hairpin loops",
+      "None"
+    ],
+    "answer": [0],
+    "explanation": "EcoRI creates sticky ends by producing staggered cuts."
+  }
+]

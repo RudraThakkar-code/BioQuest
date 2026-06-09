@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - Performance Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/performance.css">
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">BioQuest - Performance Dashboard</h1>
+        <p>Topic-wise accuracy to identify weak areas.</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="performance.html" class="active">Performance</a></li>
+            <li><a href="ai.html">AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="dashboard-grid">
+            <section class="card strengths">
+                <h2>Strengths</h2>
+                <div id="strengthsList">Loading...</div>
+            </section>
+            <section class="card weaknesses">
+                <h2>Weak Areas (Requires Revision)</h2>
+                <div id="weaknessesList">Loading...</div>
+            </section>
+        </div>
+        
+        <section class="card">
+            <h2>All Topics</h2>
+            <table class="perf-table">
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Attempted</th>
+                        <th>Correct</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody id="perfTableBody">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="js/performance.js"></script>
+</body>
+</html>

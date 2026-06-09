@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - Test History</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">BioQuest - Attempt History</h1>
+        <p>Track your past tests and monitor your progress over time.</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html" class="active">History</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="ai.html">AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="card">
+            <h2>Previous Tests</h2>
+            <table class="perf-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <thead style="background: #f8f9fa;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Score</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Attempted</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Correct</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Accuracy</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Time Used</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        const API_BASE = '/api';
+        
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}m ${s}s`;
+        }
+        
+        function formatDate(isoString) {
+            const d = new Date(isoString);
+            return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function ensureName() {
+            const userName = localStorage.getItem('userName');
+            if (!userName) {
+                window.location.href = 'index.html';
+                return null;
+            }
+            const titleObj = document.getElementById('headerTitle');
+            if (titleObj) titleObj.textContent = `${userName}'s BioQuest - Attempt History`;
+            return userName;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!ensureName()) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/attempts`);
+                const records = await res.json();
+                const tbody = document.getElementById('historyTableBody');
+                
+                if (records.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 15px;">No past attempts found.</td></tr>';
+                    return;
+                }
+                
+                records.forEach(rec => {
+                    const tr = document.createElement('tr');
+                    const accColor = rec.accuracy >= 70 ? 'var(--success)' : (rec.accuracy <= 40 ? 'var(--danger)' : 'var(--text-color)');
+                    
+                    tr.innerHTML = `
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${formatDate(rec.date)}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold; color: var(--primary-color)">${rec.totalMarks.toFixed(2)}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${rec.totalAttempted}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${rec.totalCorrect}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center; color: ${accColor}; font-weight: bold;">${rec.accuracy.toFixed(1)}%</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${formatTime(rec.timeUsed)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                console.error("Failed to load history", e);
+                document.getElementById('historyTableBody').innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Error loading data.</td></tr>';
+            }
+        });
+    </script>
+</body>
+</html>

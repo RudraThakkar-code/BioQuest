@@ -1,0 +1,146 @@
+.exam-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+}
+
+.exam-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-panel {
+    flex: 3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #ccc;
+    background: white;
+    overflow-y: auto;
+}
+
+.side-panel {
+    flex: 1;
+    padding: 10px;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.q-type { color: var(--primary-color); }
+
+.question-content {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.palette-legend {
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.badge {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.question-palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.pal-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Palette Status Colors */
+.status-not_visited { background: #e2e3e5; color: black; border-color: #d6d8db; }
+.status-not_answered { background: #dc3545; color: white; border-color: #dc3545; } /* Red */
+.status-answered { background: #28a745; color: white; border-color: #28a745; } /* Green */
+.status-marked_review { background: #6f42c1; color: white; border-color: #6f42c1; } /* Purple */
+.status-answered_review { background: #6f42c1; color: white; border-color: #6f42c1; position: relative; } /* Purple with check */
+.status-answered_review::after {
+    content: "✓";
+    position: absolute;
+    bottom: -2px;
+    right: 2px;
+    color: #28a745;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-submit-exam {
+    background: #17a2b8;
+    color: white;
+    width: 100%;
+    margin-top: auto;
+}
+.btn-calc {
+    width: 100%;
+    margin-bottom: 15px;
+    background: #343a40;
+    color: white;
+}
+
+.nat-container { margin-bottom: 20px; }
+.nat-container input { padding: 5px; font-size: 1rem; width: 200px; }

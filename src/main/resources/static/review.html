@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - Review Engine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/review.css">
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">BioQuest - Review Mode</h1>
+        <p>Analyze your mistakes. This is where learning happens.</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="ai.html">AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="card summary-card">
+            <h2>Test Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-val" id="totalMarks">0</div>
+                    <div class="stat-label">Total Marks</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" id="totalAttempted">0</div>
+                    <div class="stat-label">Attempted</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" id="totalCorrect">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviewContainer">
+            <!-- Review items injected here -->
+        </section>
+    </main>
+
+    <script src="js/review.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - GATE Ecosystem</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">BioQuest</h1>
+        <p>Your GATE Biotechnology Preparatory Engine</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#" onclick="startTestPrompt()">Start Test</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="ai.html">AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="card" id="name-section">
+            <h2>Welcome to BioQuest</h2>
+            <p>Please enter your name to begin your preparation.</p>
+            <div style="margin-top: 15px; margin-bottom: 15px;">
+                <input type="text" id="userNameInput" placeholder="Enter your name" style="padding: 8px; width: 100%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <button class="btn btn-primary" onclick="saveName()">Save & Continue</button>
+        </section>
+
+        <section class="card" id="welcome-section" style="display:none;">
+            <h2 id="welcomeText">Welcome back!</h2>
+            <p>Select an option from the menu to begin your preparation.</p>
+            <button class="btn btn-secondary" onclick="changeName()" style="margin-top: 10px; font-size: 0.8rem; padding: 0.3rem 0.6rem;">Change Name</button>
+        </section>
+        
+        <section class="card" id="start-test-section" style="display:none;">
+            <h3>Start a Test</h3>
+            <label for="blueprintSelect">Select Exam Blueprint:</label>
+            <select id="blueprintSelect">
+                <option value="week-1">Week 1 Test</option>
+            </select>
+            <button class="btn" onclick="startExam()">Launch Exam Engine</button>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

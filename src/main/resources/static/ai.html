@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQuest - AI Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .ai-grid {
+            display: flex;
+            gap: 20px;
+        }
+        .ai-section {
+            flex: 1;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-family: monospace;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f4f6f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">BioQuest AI</h1>
+        <p>Smart Analysis and Study Planning</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="ai.html" class="active">AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="ai-grid">
+            <section class="card ai-section">
+                <h2>Generate ChatGPT Report</h2>
+                <p style="margin-bottom:15px; font-size:0.9rem;">Aggregates your performance into a structured prompt. Copy and paste this into ChatGPT (or Claude) for an immediate study plan.</p>
+                
+                <div class="form-group">
+                    <label>Student Goal:</label>
+                    <input type="text" id="goalInput" value="GATE BT 2027">
+                </div>
+                <div class="form-group">
+                    <label>Hours Available:</label>
+                    <input type="text" id="hoursInput" value="2 hours/day">
+                </div>
+                
+                <button class="btn btn-primary" onclick="generatePrompt()" style="margin-bottom:15px;">Generate Prompt</button>
+                
+                <textarea id="promptOutput" readonly placeholder="Your prompt will appear here..."></textarea>
+                <button class="btn btn-secondary" onclick="copyPrompt()" style="margin-top:10px;">Copy to Clipboard</button>
+            </section>
+            
+            <section class="card ai-section">
+                <h2>Local AI Coach (Ollama)</h2>
+                <p style="margin-bottom:15px; font-size:0.9rem;">Requires Ollama running locally (e.g., Qwen 3 or Llama 3).</p>
+                <div class="form-group">
+                    <label>Model Name:</label>
+                    <input type="text" id="modelInput" value="qwen:0.5b">
+                </div>
+                <button class="btn btn-primary" onclick="generateLocalPlan()" style="margin-bottom:15px;">Generate Study Plan</button>
+                <div id="localPlanOutput">
+                    <pre>Plan will appear here...</pre>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = '/api/ai';
+
+        function ensureName() {
+            const userName = localStorage.getItem('userName');
+            if (!userName) {
+                window.location.href = 'index.html';
+                return null;
+            }
+            const titleObj = document.getElementById('headerTitle');
+            if (titleObj) titleObj.textContent = `${userName}'s BioQuest AI`;
+            return userName;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ensureName();
+        });
+
+        async function generatePrompt() {
+            const goal = document.getElementById('goalInput').value;
+            const hours = document.getElementById('hoursInput').value;
+            try {
+                const res = await fetch(`${API_BASE}/report-prompt?goal=${encodeURIComponent(goal)}&hours=${encodeURIComponent(hours)}`);
+                const data = await res.json();
+                document.getElementById('promptOutput').value = data.prompt;
+            } catch (e) {
+                alert("Failed to generate prompt.");
+            }
+        }
+
+        function copyPrompt() {
+            const copyText = document.getElementById("promptOutput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+            alert("Copied to clipboard!");
+        }
+
+        async function generateLocalPlan() {
+            // Placeholder for now, implemented in next step
+            document.getElementById('localPlanOutput').innerHTML = '<pre>Loading...</pre>';
+            const goal = document.getElementById('goalInput').value;
+            const hours = document.getElementById('hoursInput').value;
+            const model = document.getElementById('modelInput').value;
+            
+            try {
+                const res = await fetch(`${API_BASE}/study-plan`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ goal, hoursPerDay: hours, model })
+                });
+                
+                if (!res.ok) {
+                    throw new Error("Local AI generation failed.");
+                }
+                
+                const data = await res.json();
+                document.getElementById('localPlanOutput').innerHTML = `<pre>${data.plan}</pre>`;
+            } catch (e) {
+                document.getElementById('localPlanOutput').innerHTML = `<pre style="color:red">Failed: Ensure Ollama is running locally and the model is installed.</pre>`;
+            }
+        }
+    </script>
+</body>
+</html>

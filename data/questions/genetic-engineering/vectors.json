@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Vectors",
+    "difficulty": "L4",
+    "source": "GATE 2022",
+    "question": "Which of the following vectors is best suited for cloning large DNA fragments (up to 300 kb)?",
+    "options": [
+      "Plasmids",
+      "Phagemids",
+      "BACs",
+      "Cosmids"
+    ],
+    "answer": [2],
+    "explanation": "Bacterial Artificial Chromosomes (BACs) can accommodate large inserts between 100-300 kb."
+  }
+]

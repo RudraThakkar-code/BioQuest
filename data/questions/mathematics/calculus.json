@@ -1,0 +1,33 @@
+[
+  {
+    "id": 5,
+    "type": "MCQ",
+    "marks": 1,
+    "subject": "Mathematics",
+    "topic": "Calculus",
+    "difficulty": "L2",
+    "source": "GATE 2021",
+    "question": "What is the derivative of e^(2x)?",
+    "options": [
+      "e^(2x)",
+      "2e^(2x)",
+      "x*e^(2x)",
+      "2x*e^(2x)"
+    ],
+    "answer": [1],
+    "explanation": "Using the chain rule, d/dx(e^(2x)) = e^(2x) * d/dx(2x) = 2e^(2x)."
+  },
+  {
+    "id": 6,
+    "type": "NAT",
+    "marks": 2,
+    "subject": "Mathematics",
+    "topic": "Calculus",
+    "difficulty": "L3",
+    "source": "Self",
+    "question": "What is the value of pi up to two decimal places?",
+    "answer": 3.14,
+    "tolerance": 0.01,
+    "explanation": "Pi is approximately 3.14159, so 3.14 is correct."
+  }
+]
