@@ -1,20 +1,162 @@
 [
   {
-    "id": 1,
+    "id": 1011,
     "type": "MCQ",
     "marks": 1,
     "subject": "Genetic Engineering",
     "topic": "Restriction Enzymes",
+    "difficulty": "L2",
+    "source": "GATE Style",
+    "question": "The first restriction endonuclease to be discovered was:",
+    "options": ["EcoRI", "HindII", "BamHI", "AluI"],
+    "answer": [1],
+    "explanation": "HindII was the first restriction endonuclease discovered.",
+    "tags": ["MEMORY_BASED", "PYQ"]
+  },
+  {
+    "id": 1012,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L2",
+    "source": "BioQuest",
+    "question": "Which of the following enzymes cuts outside its recognition sequence?",
+    "options": ["Type I", "Type II", "Type IV", "SmaI"],
+    "answer": [0],
+    "explanation": "Type I restriction enzymes cleave DNA far from their recognition site.",
+    "tags": ["CONCEPTUAL"]
+  },
+  {
+    "id": 1013,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
     "difficulty": "L3",
-    "source": "Primrose Ch 2",
-    "question": "EcoRI produces:",
+    "source": "DBT-JRF Style",
+    "question": "A plasmid contains a single EcoRI site. Digestion with EcoRI will produce:",
     "options": [
-      "Sticky ends",
+      "Two DNA fragments",
+      "One linear DNA molecule",
+      "Three fragments",
+      "No digestion"
+    ],
+    "answer": [1],
+    "explanation": "A circular plasmid with one EcoRI site becomes one linear molecule.",
+    "tags": ["CONCEPTUAL"]
+  },
+  {
+    "id": 1014,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "GATE Style",
+    "question": "The recognition sequence of HindIII is:",
+    "options": ["AAGCTT", "GAATTC", "GGATCC", "CCCGGG"],
+    "answer": [0],
+    "explanation": "HindIII recognizes AAGCTT.",
+    "tags": ["MEMORY_BASED", "PYQ"]
+  },
+  {
+    "id": 1015,
+    "type": "MSQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "DBT-JRF Style",
+    "question": "Which of the following are characteristics of Type II restriction enzymes?",
+    "options": [
+      "Recognize specific sequences",
+      "Require ATP for cleavage",
+      "Cut at defined positions",
+      "Widely used in cloning"
+    ],
+    "answer": [0,2,3],
+    "explanation": "Type II enzymes recognize specific sites and cut at defined positions, making them useful in cloning.",
+    "tags": ["CONCEPTUAL"]
+  },
+  {
+    "id": 1016,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "BioQuest",
+    "question": "The enzyme BamHI generates:",
+    "options": [
+      "5' sticky ends",
+      "3' sticky ends",
       "Blunt ends",
-      "Hairpin loops",
-      "None"
+      "Hairpin ends"
     ],
     "answer": [0],
-    "explanation": "EcoRI creates sticky ends by producing staggered cuts."
+    "explanation": "BamHI produces 5' overhang sticky ends.",
+    "tags": ["MEMORY_BASED"]
+  },
+  {
+    "id": 1017,
+    "type": "NAT",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "GATE Style",
+    "question": "A restriction enzyme recognizes a 5 bp sequence. Assuming equal nucleotide frequency, one site is expected every _____ bp.",
+    "answer": 1024,
+    "tolerance": 0,
+    "explanation": "Expected frequency = 4^5 = 1024 bp.",
+    "tags": ["NUMERICAL", "PYQ"]
+  },
+  {
+    "id": 1018,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "BioQuest",
+    "question": "Methylation protects bacterial DNA because:",
+    "options": [
+      "Restriction enzymes cannot bind",
+      "Restriction enzymes cannot cleave methylated recognition sites",
+      "DNA becomes circular",
+      "DNA replication stops"
+    ],
+    "answer": [1],
+    "explanation": "Methylation prevents cleavage of host DNA by its own restriction enzymes.",
+    "tags": ["CONCEPTUAL"]
+  },
+  {
+    "id": 1019,
+    "type": "MSQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L3",
+    "source": "JGEEBILS Style",
+    "question": "Select all enzymes that generate blunt ends.",
+    "options": ["SmaI", "AluI", "EcoRI", "HaeIII"],
+    "answer": [0,1,3],
+    "explanation": "SmaI, AluI and HaeIII generate blunt-ended DNA fragments.",
+    "tags": ["MEMORY_BASED"]
+  },
+  {
+    "id": 1020,
+    "type": "MCQ",
+    "marks": 2,
+    "subject": "Genetic Engineering",
+    "topic": "Restriction Enzymes",
+    "difficulty": "L4",
+    "source": "GATE Style",
+    "question": "A DNA fragment generated by EcoRI can be directly ligated to a fragment generated by:",
+    "options": ["EcoRI", "SmaI", "AluI", "HaeIII"],
+    "answer": [0],
+    "explanation": "Compatible sticky ends are generated by the same enzyme EcoRI.",
+    "tags": ["CONCEPTUAL", "PYQ"]
   }
 ]
