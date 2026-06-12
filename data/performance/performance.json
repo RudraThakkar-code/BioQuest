@@ -1,18 +1,18 @@
 {
   "PCR" : {
-    "correct" : 2,
-    "attempted" : 4
+    "correct" : 0,
+    "attempted" : 2
   },
   "Restriction Enzymes" : {
     "correct" : 1,
-    "attempted" : 2
+    "attempted" : 1
   },
   "Vectors" : {
-    "correct" : 1,
-    "attempted" : 2
+    "correct" : 0,
+    "attempted" : 1
   },
   "Calculus" : {
-    "correct" : 4,
-    "attempted" : 4
+    "correct" : 2,
+    "attempted" : 2
   }
 }

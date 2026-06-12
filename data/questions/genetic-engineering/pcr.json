@@ -11,7 +11,7 @@
   "answer" : [ 0, 1, 3 ],
   "tolerance" : null,
   "explanation" : "Taq Polymerase, dNTPs, and Primers are essential. Reverse Transcriptase is used in RT-PCR, not standard PCR.",
-  "revisionPriority" : 1
+  "revisionPriority" : 2
 }, {
   "id" : 4,
   "type" : "NAT",
@@ -25,5 +25,5 @@
   "answer" : 1024,
   "tolerance" : 0.0,
   "explanation" : "The number of molecules doubles every cycle. N = N0 * 2^n = 1 * 2^10 = 1024.",
-  "revisionPriority" : 1
+  "revisionPriority" : 2
 } ]

@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# BioQuest generated files
+data/attempts/
+data/performance/performance.json
