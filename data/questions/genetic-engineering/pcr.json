@@ -1,33 +1,29 @@
-[
-  {
-    "id": 3,
-    "type": "MSQ",
-    "marks": 2,
-    "subject": "Genetic Engineering",
-    "topic": "PCR",
-    "difficulty": "L3",
-    "source": "DBT-JRF Mock",
-    "question": "Which of the following are essential components of a standard PCR reaction?",
-    "options": [
-      "Taq Polymerase",
-      "dNTPs",
-      "Reverse Transcriptase",
-      "Primers"
-    ],
-    "answer": [0, 1, 3],
-    "explanation": "Taq Polymerase, dNTPs, and Primers are essential. Reverse Transcriptase is used in RT-PCR, not standard PCR."
-  },
-  {
-    "id": 4,
-    "type": "NAT",
-    "marks": 2,
-    "subject": "Genetic Engineering",
-    "topic": "PCR",
-    "difficulty": "L3",
-    "source": "Self",
-    "question": "In a PCR reaction, if you start with 1 double-stranded DNA molecule, how many molecules will you have after 10 cycles? (Assuming 100% efficiency)",
-    "answer": 1024,
-    "tolerance": 0.0,
-    "explanation": "The number of molecules doubles every cycle. N = N0 * 2^n = 1 * 2^10 = 1024."
-  }
-]
+[ {
+  "id" : 3,
+  "type" : "MSQ",
+  "marks" : 2,
+  "subject" : "Genetic Engineering",
+  "topic" : "PCR",
+  "difficulty" : "L3",
+  "source" : "DBT-JRF Mock",
+  "question" : "Which of the following are essential components of a standard PCR reaction?",
+  "options" : [ "Taq Polymerase", "dNTPs", "Reverse Transcriptase", "Primers" ],
+  "answer" : [ 0, 1, 3 ],
+  "tolerance" : null,
+  "explanation" : "Taq Polymerase, dNTPs, and Primers are essential. Reverse Transcriptase is used in RT-PCR, not standard PCR.",
+  "revisionPriority" : 1
+}, {
+  "id" : 4,
+  "type" : "NAT",
+  "marks" : 2,
+  "subject" : "Genetic Engineering",
+  "topic" : "PCR",
+  "difficulty" : "L3",
+  "source" : "Self",
+  "question" : "In a PCR reaction, if you start with 1 double-stranded DNA molecule, how many molecules will you have after 10 cycles? (Assuming 100% efficiency)",
+  "options" : null,
+  "answer" : 1024,
+  "tolerance" : 0.0,
+  "explanation" : "The number of molecules doubles every cycle. N = N0 * 2^n = 1 * 2^10 = 1024.",
+  "revisionPriority" : 1
+} ]

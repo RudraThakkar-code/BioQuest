@@ -39,7 +39,7 @@ public class AiController {
     public ResponseEntity<Map<String, String>> generateLocalPlan(@RequestBody Map<String, String> request) {
         String goal = request.getOrDefault("goal", "GATE BT");
         String hours = request.getOrDefault("hoursPerDay", "2 hours/day");
-        String model = request.getOrDefault("model", "qwen");
+        String model = request.getOrDefault("model", "qwen3:4b");
         
         String plan = studyPlanner.generateStudyPlan(goal, hours, model);
         
