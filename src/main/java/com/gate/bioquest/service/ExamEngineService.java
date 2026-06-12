@@ -19,12 +19,14 @@ public class ExamEngineService {
     private final QuestionBankService questionBankService;
     private final ProgressService progressService;
     private final StudyPlanService studyPlanService;
+    private final MistakeService mistakeService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ExamEngineService(QuestionBankService questionBankService, ProgressService progressService, StudyPlanService studyPlanService) {
+    public ExamEngineService(QuestionBankService questionBankService, ProgressService progressService, StudyPlanService studyPlanService, MistakeService mistakeService) {
         this.questionBankService = questionBankService;
         this.progressService = progressService;
         this.studyPlanService = studyPlanService;
+        this.mistakeService = mistakeService;
     }
 
     public Blueprint loadBlueprint(String name) throws IOException {
@@ -91,6 +93,61 @@ public class ExamEngineService {
         List<String> weakTopics = progressService.findWeakTopics().stream().map(t -> t.getTopic()).collect(Collectors.toList());
 
         return buildExam(totalQuestions, dueCount, dueTopics, weakCount, weakTopics, 0, Collections.emptyList(), 0, Collections.emptyList());
+    }
+
+    public List<Question> generateMistakeExam(int totalQuestions) {
+        List<Long> activeAndReviewQuestionIds = mistakeService.getActiveAndReviewMistakes().stream()
+                .map(com.gate.bioquest.model.Mistake::getQuestionId)
+                .collect(Collectors.toList());
+
+        List<Question> mistakeQuestions = activeAndReviewQuestionIds.stream()
+                .map(questionBankService::getQuestionById)
+                .filter(q -> q != null)
+                .collect(Collectors.toList());
+
+        Collections.shuffle(mistakeQuestions);
+        return mistakeQuestions.stream()
+                .limit(totalQuestions)
+                .map(this::sanitizeQuestion)
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> generatePYQExam(int totalQuestions) {
+        List<Question> pyqQuestions = new ArrayList<>(questionBankService.getPYQQuestions());
+        Collections.shuffle(pyqQuestions);
+        return pyqQuestions.stream()
+                .limit(totalQuestions)
+                .map(this::sanitizeQuestion)
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> generateMixedExam(int totalQuestions) {
+        int pyqCount = totalQuestions / 2;
+        int standardCount = totalQuestions - pyqCount;
+
+        List<Question> exam = new ArrayList<>();
+
+        List<Question> pyqQuestions = new ArrayList<>(questionBankService.getPYQQuestions());
+        Collections.shuffle(pyqQuestions);
+        exam.addAll(pyqQuestions.stream().limit(pyqCount).collect(Collectors.toList()));
+
+        List<Question> allOtherQuestions = questionBankService.getAllQuestions().stream()
+                .filter(q -> !q.isPYQ())
+                .collect(Collectors.toList());
+        Collections.shuffle(allOtherQuestions);
+        exam.addAll(allOtherQuestions.stream().limit(standardCount).collect(Collectors.toList()));
+
+        // Fill shortages if necessary
+        int missing = totalQuestions - exam.size();
+        if (missing > 0) {
+            List<Question> remaining = questionBankService.getAllQuestions();
+            remaining.removeAll(exam);
+            Collections.shuffle(remaining);
+            exam.addAll(remaining.stream().limit(missing).collect(Collectors.toList()));
+        }
+
+        Collections.shuffle(exam);
+        return exam.stream().map(this::sanitizeQuestion).collect(Collectors.toList());
     }
 
     private List<Question> buildExam(int totalQuestions,

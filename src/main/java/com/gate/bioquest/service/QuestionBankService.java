@@ -88,6 +88,24 @@ public class QuestionBankService {
                 .orElse(null);
     }
 
+    public List<Question> getPYQQuestions() {
+        return allQuestions.stream()
+                .filter(Question::isPYQ)
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getQuestionsByYear(String year) {
+        return allQuestions.stream()
+                .filter(q -> q.getSource() != null && q.getSource().contains(year))
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getQuestionsBySource(String source) {
+        return allQuestions.stream()
+                .filter(q -> q.getSource() != null && q.getSource().equalsIgnoreCase(source))
+                .collect(Collectors.toList());
+    }
+
     public void updateQuestionPriority(Long id, boolean isCorrect) {
         Question q = getQuestionById(id);
         if (q != null) {

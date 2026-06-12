@@ -56,7 +56,7 @@ public class ProgressService {
         }
     }
 
-    public void updateTopic(String subject, String topic, double accuracy) {
+    public void updateTopicWithConfidence(String subject, String topic, int masteryAdjustment, boolean isCorrect) {
         TopicProgress tp = getProgress(subject, topic);
         if (tp == null) {
             tp = new TopicProgress();
@@ -64,35 +64,41 @@ public class ProgressService {
             tp.setTopic(topic);
             tp.setMastery(0);
             tp.setTimesTested(0);
+            tp.setAccuracy(0.0);
             progressList.add(tp);
         }
 
         tp.setTimesTested(tp.getTimesTested() + 1);
-        tp.setAccuracy(accuracy); // Update to latest accuracy, could also be a moving average
+
+        // Simple moving average for accuracy
+        double currentTotal = (tp.getAccuracy() / 100.0) * (tp.getTimesTested() - 1);
+        double newTotal = currentTotal + (isCorrect ? 1.0 : 0.0);
+        tp.setAccuracy((newTotal / tp.getTimesTested()) * 100.0);
+
         tp.setLastReviewed(LocalDate.now());
 
-        updateMasteryAndNextReview(tp, accuracy);
+        updateMasteryAndNextReviewWithAdjustment(tp, masteryAdjustment);
         updateStatusAndPriority(tp);
 
         saveProgress();
     }
 
-    private void updateMasteryAndNextReview(TopicProgress tp, double accuracy) {
+    private void updateMasteryAndNextReviewWithAdjustment(TopicProgress tp, int masteryAdjustment) {
         int currentMastery = tp.getMastery();
-        if (accuracy > 80) {
-            currentMastery += 20;
-            tp.setNextReview(LocalDate.now().plusDays(7));
-        } else if (accuracy >= 50) {
-            currentMastery += 10;
-            tp.setNextReview(LocalDate.now().plusDays(3));
-        } else {
-            currentMastery -= 10;
-            tp.setNextReview(LocalDate.now().plusDays(1));
-        }
+        currentMastery += masteryAdjustment;
 
         // Clamp mastery
         currentMastery = Math.max(0, Math.min(100, currentMastery));
         tp.setMastery(currentMastery);
+
+        // Adjust next review based on new mastery
+        if (currentMastery > 80) {
+            tp.setNextReview(LocalDate.now().plusDays(7));
+        } else if (currentMastery > 50) {
+            tp.setNextReview(LocalDate.now().plusDays(3));
+        } else {
+            tp.setNextReview(LocalDate.now().plusDays(1));
+        }
     }
 
     private void updateStatusAndPriority(TopicProgress tp) {

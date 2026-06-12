@@ -22,6 +22,7 @@ public class Submission {
         private Long questionId;
         private Object userResponse; // List<Integer> for MCQ/MSQ, Double/String for NAT
         private String status; // answered, not_answered, marked_review, answered_review
+        private ConfidenceLevel confidence;
 
         public Long getQuestionId() { return questionId; }
         public void setQuestionId(Long questionId) { this.questionId = questionId; }
@@ -31,5 +32,8 @@ public class Submission {
 
         public String getStatus() { return status; }
         public void setStatus(String status) { this.status = status; }
+
+        public ConfidenceLevel getConfidence() { return confidence; }
+        public void setConfidence(ConfidenceLevel confidence) { this.confidence = confidence; }
     }
 }

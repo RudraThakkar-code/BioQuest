@@ -18,6 +18,7 @@ public class Question {
     private Double tolerance;
     private String explanation;
     private Integer revisionPriority = 1;
+    private List<String> tags;
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -58,4 +59,11 @@ public class Question {
 
     public Integer getRevisionPriority() { return revisionPriority; }
     public void setRevisionPriority(Integer revisionPriority) { this.revisionPriority = revisionPriority; }
+
+    public List<String> getTags() { return tags; }
+    public void setTags(List<String> tags) { this.tags = tags; }
+
+    public boolean isPYQ() {
+        return source != null && source.toUpperCase().contains("GATE");
+    }
 }
