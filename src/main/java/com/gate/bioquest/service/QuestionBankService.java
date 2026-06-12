@@ -59,11 +59,51 @@ public class QuestionBankService {
                 .collect(Collectors.toList());
     }
 
+    public List<Question> getQuestionsByTopic(String topic) {
+        return allQuestions.stream()
+                .filter(q -> q.getTopic().equalsIgnoreCase(topic))
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getQuestionsByTopics(List<String> topics) {
+        if (topics == null || topics.isEmpty()) return new ArrayList<>();
+        List<String> lowerCaseTopics = topics.stream().map(String::toLowerCase).collect(Collectors.toList());
+        return allQuestions.stream()
+                .filter(q -> lowerCaseTopics.contains(q.getTopic().toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getRandomQuestionsExcludingTopics(List<String> excludedTopics) {
+        if (excludedTopics == null || excludedTopics.isEmpty()) return new ArrayList<>(allQuestions);
+        List<String> lowerCaseExcluded = excludedTopics.stream().map(String::toLowerCase).collect(Collectors.toList());
+        return allQuestions.stream()
+                .filter(q -> !lowerCaseExcluded.contains(q.getTopic().toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
     public Question getQuestionById(Long id) {
         return allQuestions.stream()
                 .filter(q -> q.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<Question> getPYQQuestions() {
+        return allQuestions.stream()
+                .filter(Question::isPYQ)
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getQuestionsByYear(String year) {
+        return allQuestions.stream()
+                .filter(q -> q.getSource() != null && q.getSource().contains(year))
+                .collect(Collectors.toList());
+    }
+
+    public List<Question> getQuestionsBySource(String source) {
+        return allQuestions.stream()
+                .filter(q -> q.getSource() != null && q.getSource().equalsIgnoreCase(source))
+                .collect(Collectors.toList());
     }
 
     public void updateQuestionPriority(Long id, boolean isCorrect) {

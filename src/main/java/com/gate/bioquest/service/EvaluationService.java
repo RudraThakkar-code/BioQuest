@@ -14,9 +14,18 @@ import java.util.Set;
 public class EvaluationService {
 
     private final QuestionBankService questionBankService;
+    private final ProgressService progressService;
+    private final QuestionProgressService questionProgressService;
+    private final MistakeService mistakeService;
 
-    public EvaluationService(QuestionBankService questionBankService) {
+    public EvaluationService(QuestionBankService questionBankService,
+                             ProgressService progressService,
+                             QuestionProgressService questionProgressService,
+                             MistakeService mistakeService) {
         this.questionBankService = questionBankService;
+        this.progressService = progressService;
+        this.questionProgressService = questionProgressService;
+        this.mistakeService = mistakeService;
     }
 
     public EvaluationResult evaluate(Submission submission) {
@@ -82,9 +91,30 @@ public class EvaluationService {
             }
             questionResults.add(qResult);
             
-            // Update revision priority based on result
             if (isAttempted) {
                 questionBankService.updateQuestionPriority(question.getId(), qResult.isCorrect());
+
+                // Confidence Logic
+                com.gate.bioquest.model.ConfidenceLevel conf = response.getConfidence() != null
+                        ? response.getConfidence() : com.gate.bioquest.model.ConfidenceLevel.GUESS; // default to guess if missing
+
+                int masteryAdjustment = 0;
+                if (qResult.isCorrect()) {
+                    if (conf == com.gate.bioquest.model.ConfidenceLevel.CONFIDENT) masteryAdjustment = 20;
+                    else masteryAdjustment = 10;
+                } else {
+                    if (conf == com.gate.bioquest.model.ConfidenceLevel.CONFIDENT) masteryAdjustment = -25;
+                    else masteryAdjustment = -10;
+                }
+
+                progressService.updateTopicWithConfidence(question.getSubject(), question.getTopic(), masteryAdjustment, qResult.isCorrect());
+                questionProgressService.updateProgress(question.getId(), qResult.isCorrect());
+
+                if (qResult.isCorrect()) {
+                    mistakeService.recordCorrect(question.getId());
+                } else {
+                    mistakeService.recordMistake(question.getId(), question.getTopic(), response.getUserResponse(), question.getAnswer());
+                }
             }
         }
 
